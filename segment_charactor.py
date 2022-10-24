@@ -28,8 +28,7 @@ def find_color_character_index(centroid, centroid_of_charactor):
     return ind_of_character_color
 
 
-path_sc_sh = "./Seg-charactor/screen_shots"
-centroid_character = take_color(path_sc_sh)
+
 # binary mask
 def binary_mask(path_img, n_cluster):
     # convert 2D
@@ -43,6 +42,8 @@ def binary_mask(path_img, n_cluster):
     centroid = kmeans_model.cluster_centers_.round(0).astype(int)
 
     # take index color of character
+    path_sc_sh = "./Seg-charactor/screen_shots"
+    centroid_character = take_color(path_sc_sh)
     ind = find_color_character_index(centroid, centroid_character)
 
     # convert to binary color
@@ -55,3 +56,9 @@ def binary_mask(path_img, n_cluster):
     img_bm = np.reshape(bcolor[cluster_labels],img_size)
     return img_bm
 
+# demo
+input_img_folder = "./Seg-charactor/input_images"
+image_paths = list(glob.glob(input_img_folder  + '/*.jpg'))
+for path in image_paths:
+    bm_img = binary_mask(path, 32)
+    plt.imshow(bm_img)
