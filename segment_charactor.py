@@ -4,6 +4,7 @@ import matplotlib.image as img
 import glob
 from sklearn.cluster import KMeans
 from collections import Counter
+import cv2
 
 # take colors of charactor
 def take_color(folder_screenshot_path):
@@ -61,4 +62,5 @@ input_img_folder = "./Seg-charactor/input_images"
 image_paths = list(glob.glob(input_img_folder  + '/*.jpg'))
 for path in image_paths:
     bm_img = binary_mask(path, 32)
-    plt.imshow(bm_img)
+    fname = 'bm' + path.split('/)[:-1]
+    status = cv2.imwrite(fname, img_bm)
